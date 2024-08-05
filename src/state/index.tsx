@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PaletteMode } from "@mui/material";
 
 export interface UserI {
 	_id: string;
@@ -12,8 +13,8 @@ export interface UserI {
 	photo: string;
 }
 
-interface iState {
-	mode: string,
+export interface iState {
+	mode: PaletteMode,
 	user: null | UserI,
 	token: null | string,
 	posts: Array<{
