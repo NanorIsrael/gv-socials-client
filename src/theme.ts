@@ -31,9 +31,18 @@ export const colorTokens = {
 	},
   };
   
+  export interface Theme {
+	palette: {
+		mode: PaletteMode,
+		primary: {},
+		neutral: {}
+		background: {}
+	  },
+	  typography:{}
+	
+  }
   // mui theme settings
-  export const themeSettings = (mode: PaletteMode) => {
-	return {
+  export const themeSettings = (mode: PaletteMode): Theme => ({
 	  palette: {
 		mode: mode,
 		...(mode === "dark"
@@ -104,5 +113,5 @@ export const colorTokens = {
 		  fontSize: 14,
 		},
 	  },
-	};
-  };
+	});
+  

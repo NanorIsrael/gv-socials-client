@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './theme';
 import { useSelector } from 'react-redux';
 import { iState } from './state';
+import Navbar from './scenes/navbar';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline/>
+          <Navbar/>
           <Routes>
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/home' element={<HomePage/>}/>
