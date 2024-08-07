@@ -7,30 +7,31 @@ import { useNavigate } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 import { EditOutlined } from "@mui/icons-material";
+import { setLogin } from "../../state";
 
-const registerSchema = ({
+const registerSchema = yup.object().shape({
 	firstName: yup.string().required("required"), 
 	lastName: yup.string().required("required"),
 	email: yup.string().email("invalid email").required("required"),
 	password: yup.string().required("required"),
-	location: yup.string().required("required"),
-	occupation: yup.string().required("required"),
-	picture: yup.string().required("required")
 })
+// photo: yup.string().optional()
 
-const loginSchema = ({
+// location: yup.string().required("required"),
+// 	occupation: yup.string().required("required"),
+const loginSchema = yup.object().shape({
 	email: yup.string().email("invalid email").required("required"),
 	password: yup.string().required("required"),
 })
+// location: "",
+// 	occupation: "",
 
 const initialValuesRegister = {
 	firstName: "",
 	lastName: "",
 	email: "",
 	password: "",
-	location: "",
-	occupation: "",
-	picture: ""
+	photo: ""
 }
 const initialValuesLogin = {
 	email: "",
@@ -39,12 +40,11 @@ const initialValuesLogin = {
 
 type PageType = "login" | "register"
 const Form = () => {
-	const [ pageType, setPageType ] = useState<PageType>("register")
+	const [ pageType, setPageType ] = useState<PageType>("login")
 	const { palette } = useTheme();
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const isNonMobile = useMediaQuery("(min-width:600px)")
-	const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 	const isLogin = pageType === "login"
 	const isRegister = pageType === "register"
 
@@ -56,16 +56,46 @@ const Form = () => {
 	interface IRegister {
 		email: string;
 		password: string;
+		firstName: string,
+		lastName: string,
+		photo?: string
 	}
 	const login = async (values: ILogin, onSubmitProp: FormikHelpers<ILogin>) => {
-		
+		const loggedInUserResponse = await fetch("http://localhost:3001/signin", {
+			method: "POST",
+			body: 	JSON.stringify(values),
+			headers: {"Content-Type": "application/json"}
+		})
+		const loggedInUser = await loggedInUserResponse.json()
+		onSubmitProp.resetForm()
+
+		if (loggedInUser) {
+			dispatch(
+				setLogin({
+					user: loggedInUser.user,
+					token: loggedInUser.token,
+				})
+			)
+			navigate('/home')
+		}
 	}
 
-	const register = async (values: [], onSubmitProp: FormikHelpers<IRegister>) => {
-		console.log(values)
+	const register = async (values: IRegister, onSubmitProp: FormikHelpers<IRegister>) => {
 		const formData = new FormData()
-		for (let val in values) {
-			formData.append(val,  values[val])
+		Object.entries(values).map(([key, value]) => formData.append(key, value))
+
+		if (values.photo && values.photo.name) {
+			formData.append("photo", values.photo.name)
+		}
+		const savedUserResponse = await fetch("http://localhost:3001/signup", {
+			method: "POST",
+			body: 	formData
+		})
+		const savedUser = await savedUserResponse.json()
+		onSubmitProp.resetForm()
+
+		if (savedUser) {
+			setPageType('login')
 		}
 	}
 
@@ -151,7 +181,7 @@ const Form = () => {
 								borderRadius={"5px"}
 								p="1rem"
 								>
-									<Dropzone
+									 <Dropzone
 									multiple={false}
 									onDrop={(acceptedFiles) => 
 										setFieldValue("photo", acceptedFiles[0])
@@ -172,12 +202,12 @@ const Form = () => {
 												}}
 												>
 													<input {...getInputProps()}/>
-													{!values.picture ? (
+													{!values.photo ? (
 														<p>Add Profile Picture Here (optional)</p>
 													) : (
 														<FlexBetween>
 															<Typography>
-																{values.picture.name}
+																{values.photo.name}
 																<EditOutlined/>
 															</Typography>
 														</FlexBetween>
@@ -185,7 +215,7 @@ const Form = () => {
 
 												</Box>
 											)}
-									</Dropzone>
+									</Dropzone> 
 								</Box>
 							</>
 						)}

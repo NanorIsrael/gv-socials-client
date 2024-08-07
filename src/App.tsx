@@ -14,19 +14,32 @@ import Navbar from './scenes/navbar';
 function App() {
   const mode = useSelector((state: iState) => state.mode)
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
-
+  const user = useSelector((state: iState) => state.user)
+  const isAuth = Boolean(user)
+  console.log(user)
   return (
     <>
       <div>
+      
         <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline/>
           {/* <Navbar/> */}
-          <Routes>
-            <Route path='/' element={<LoginPage/>}/>
-            <Route path='/home' element={<HomePage/>}/>
-            <Route path='/profile/:userId' element={<ProfilePage />}/>
-          </Routes>
+          {  isAuth ? 
+             (
+              <Routes>
+                  <Route path='/home' element={ <HomePage/>}/>
+                  <Route path='/profile/:userId' element={<ProfilePage />}/>
+                  <Route path='*' element={ <HomePage/>}/>
+              </Routes>
+              )
+              :
+              (
+                <Routes>
+                  <Route path='*' element={ <LoginPage/>}/>
+                </Routes>
+              )
+            }
         </ThemeProvider>
         </BrowserRouter>
       </div>
