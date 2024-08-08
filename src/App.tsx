@@ -16,7 +16,6 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
   const user = useSelector((state: iState) => state.user)
   const isAuth = Boolean(user)
-  console.log(user)
   return (
     <>
       <div>
