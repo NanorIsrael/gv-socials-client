@@ -13,13 +13,23 @@ export interface UserI {
   photo: string;
 }
 
+export interface Post {
+  description: string;
+  picturePath: string;
+  likes:{[key: string]: boolean};
+  comments: Array<string>;
+  _id: string;
+  firstName: string;
+  lastName: string;
+  location: string;
+  userPhoto: string;
+}
+
 export interface iState {
   mode: PaletteMode;
   user: null | UserI;
   token: null | string;
-  posts: Array<{
-    _id: string;
-  }>;
+  posts: Array<Post>;
 }
 
 const initialState: iState = {
@@ -52,11 +62,13 @@ export const authSlice = createSlice({
     setPosts: (state, action) => {
       state.posts = action.payload.posts;
     },
+
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
-        if (post._id === action.payload.post_id) {
+        if (post._id === action.payload.post._id) {
           return action.payload.post;
         }
+
         return post;
       });
       state.posts = updatedPosts;

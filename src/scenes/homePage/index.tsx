@@ -3,6 +3,7 @@ import { iState } from "../../state";
 import { Box, useMediaQuery } from "@mui/material";
 import MyPostWidget from "../widgets/MyPostWidget";
 import UserWidget from "../widgets/UserWidget";
+import PostsWidget from "../widgets/PostsWidget";
 
 const HomePage = ({ userId }: { userId: string }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -25,9 +26,12 @@ const HomePage = ({ userId }: { userId: string }) => {
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <MyPostWidget picturePath={""} />
+		  <PostsWidget userId={userId} isProfile={false} />
+
         </Box>
         {isNonMobileScreens && <Box flexBasis={"26%"}></Box>}
       </Box>
+
     </Box>
   );
 };

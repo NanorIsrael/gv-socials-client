@@ -18,8 +18,7 @@ import {
   Button,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import UserImage from "../../components/UserImage";
 import FlexBetween from "../../components/FlexBetween";
@@ -38,7 +37,6 @@ const MyPostWidget = ({ picturePath }: { picturePath: string }) => {
   const token = useSelector((state: iState) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
-  const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
   if (!user) {
@@ -46,14 +44,14 @@ const MyPostWidget = ({ picturePath }: { picturePath: string }) => {
   }
   const handlePost = async () => {
     const formData = new FormData();
-    formData.append("userId", user._id);
+    formData.append("posterId", user._id);
     formData.append("description", post);
 
     if (image) {
-      formData.append("photo", image);
-      formData.append("picturePath", image.name);
+      formData.append("postPhoto", image);
+      formData.append("postPhotoPath", image.name);
     }
-    const response = await fetch(`${BASE_API_URL}/posts}`, {
+    const response = await fetch(`${BASE_API_URL}/posts`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
