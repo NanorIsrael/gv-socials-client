@@ -36,7 +36,6 @@ const Friends = ({
   const isFriend = user?.friends?.find((id) => id === friendId);
 
   const patchFriend = async () => {
-    4;
     const response = await fetch(
       `${BASE_API_URL}/users/${user?._id}/${friendId}`,
       {
@@ -46,9 +45,11 @@ const Friends = ({
         },
       },
     );
+
     const data = response.json();
     dispatch(setFriends({ friends: data }));
   };
+
   return (
     <FlexBetween>
       <FlexBetween gap={"1rem"}>

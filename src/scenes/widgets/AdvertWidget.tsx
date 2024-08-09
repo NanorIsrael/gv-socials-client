@@ -33,12 +33,13 @@
 			/>
 			<FlexBetween>
 				<Typography color={main}>
-					Gv Tech Accessories
+					Gv Tech Cosmetics
 				</Typography>
 				<Typography color={medium}>GvTech.com</Typography>
 			</FlexBetween>
 			<Typography color={medium} m={"0.5rem 0"}>
-				Home of quality products that solves all your digital needs.
+				Your pathway to stunning and immaculate beauty, ensures your skin
+				is exfoliating and shining like light.
 			</Typography>
 		</WidgetWrapper>
 	)
