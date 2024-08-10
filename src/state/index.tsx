@@ -7,7 +7,7 @@ export interface UserI {
   password: string;
   lastName: string;
   firstName: string;
-  friends: Array<string>;
+  friends: Array<{[key: string]: string}>;
   occupation: string;
   lacation: string;
   photo: string;
