@@ -16,13 +16,14 @@ export interface UserI {
 export interface Post {
   description: string;
   picturePath: string;
-  likes:{[key: string]: boolean};
+  likes: { [key: string]: boolean };
   comments: Array<string>;
   _id: string;
   firstName: string;
   lastName: string;
   location: string;
   userPhoto: string;
+  userId: string;
 }
 
 export interface iState {

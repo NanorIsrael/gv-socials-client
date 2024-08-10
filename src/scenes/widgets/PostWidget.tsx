@@ -26,7 +26,7 @@ import { useState } from "react";
 
 import FlexBetween from "../../components/FlexBetween";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { iState, setPost, setPosts } from "../../state";
+import { iState, setPost } from "../../state";
 import Friends from "../../components/Friends";
 const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
 
@@ -48,7 +48,7 @@ const PostWidget = ({
   location: string;
   picturePath: string;
   userPhoto: string;
-  likes: {[key: string]: boolean};
+  likes: { [key: string]: boolean };
   comments: Array<string>;
 }) => {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const PostWidget = ({
   const main = palette.neutral.main;
 
   const [isComments, setIsComments] = useState(false);
-  const isLikes = Boolean(user && likes[user?._id])
+  const isLikes = Boolean(user && likes[user?._id]);
   const likesCount = Object.keys(likes).length;
 
   if (!user) {
@@ -74,7 +74,7 @@ const PostWidget = ({
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId: user._id })
+      body: JSON.stringify({ userId: user._id }),
     });
 
     const updatedPost = await response.json();
@@ -112,28 +112,30 @@ const PostWidget = ({
             <Typography>{likesCount}</Typography>
           </FlexBetween>
 
-		  <FlexBetween gap={"0.3rem"}>
+          <FlexBetween gap={"0.3rem"}>
             <IconButton onClick={patchLikes}>
-            <ChatBubbleOutlineOutlined/>
+              <ChatBubbleOutlineOutlined />
             </IconButton>
             <Typography>{comments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
-		<IconButton><ShareOutlined/></IconButton>
+        <IconButton>
+          <ShareOutlined />
+        </IconButton>
       </FlexBetween>
-	  {isComments && (
-		<Box mt="0.5rem">
-			{comments.map((comment, i) => (
-				<Box key={`${name}-${i}`}>
-					<Divider/> 
-					<Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem"}}>
-						{comment}
-					</Typography>
-				</Box>
-			))}
-			<Divider/> 
-		</Box>
-	  )}
+      {isComments && (
+        <Box mt="0.5rem">
+          {comments.map((comment, i) => (
+            <Box key={`${name}-${i}`}>
+              <Divider />
+              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                {comment}
+              </Typography>
+            </Box>
+          ))}
+          <Divider />
+        </Box>
+      )}
     </WidgetWrapper>
   );
 };

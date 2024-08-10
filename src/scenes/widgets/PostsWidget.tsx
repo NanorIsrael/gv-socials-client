@@ -29,10 +29,10 @@ import PostWidget from "./PostWidget";
 const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
 
 const PostsWidget = ({
-  userId,
+  loggedInUserId,
   isProfile,
 }: {
-  userId: string;
+  loggedInUserId: string;
   isProfile: boolean;
 }) => {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ const PostsWidget = ({
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(`${BASE_API_URL}/${userId}/posts/${userId}`, {
+    const response = await fetch(`${BASE_API_URL}/posts/${loggedInUserId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -65,7 +65,6 @@ const PostsWidget = ({
     });
 
     const posts: Post[] = await response.json();
-	console.log(posts)
     dispatch(setPosts({ posts }));
   };
 
@@ -79,32 +78,34 @@ const PostsWidget = ({
 
   return (
     <>
-      {Posts.length > 0 && Posts.map(
-        ({
-          _id,
-          firstName,
-          lastName,
-          description,
-          location,
-          picturePath,
-          userPhoto,
-          likes,
-          comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            name={`${firstName} ${lastName}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            userPhoto={userPhoto}
-            likes={likes}
-            comments={comments}
-          />
-        ),
-      )}
+      {Posts.length > 0 &&
+        Posts.map(
+          ({
+            _id,
+            userId,
+            firstName,
+            lastName,
+            description,
+            location,
+            picturePath,
+            userPhoto,
+            likes,
+            comments,
+          }) => (
+            <PostWidget
+              key={_id}
+              postId={_id}
+              postUserId={userId}
+              name={`${firstName} ${lastName}`}
+              description={description}
+              location={location}
+              picturePath={picturePath}
+              userPhoto={userPhoto}
+              likes={likes}
+              comments={comments}
+            />
+          ),
+        )}
     </>
   );
 };

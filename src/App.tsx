@@ -26,12 +26,9 @@ function App() {
               <>
                 <Navbar />
                 <Routes>
-                  <Route
-                    path="/home"
-                    element={<HomePage userId={user?._id} />}
-                  />
+                  <Route path="/home" element={<HomePage />} />
                   <Route path="/profile/:userId" element={<ProfilePage />} />
-                  <Route path="*" element={<HomePage userId={user?._id} />} />
+                  <Route path="*" element={<HomePage />} />
                 </Routes>
               </>
             ) : (

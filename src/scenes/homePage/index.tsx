@@ -7,10 +7,13 @@ import PostsWidget from "../widgets/PostsWidget";
 import AdvertWidget from "../widgets/AdvertWidget";
 import FriendsListWidget from "../widgets/FriendListWidget";
 
-const HomePage = ({ userId }: { userId: string }) => {
+const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const { _id, photo } = useSelector((state: iState) => state.user);
+  const user = useSelector((state: iState) => state.user);
 
+  if (!user) {
+    return null;
+  }
   return (
     <Box>
       <Box
@@ -21,22 +24,23 @@ const HomePage = ({ userId }: { userId: string }) => {
         justifyContent={"space-between"}
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} photo={photo} />
+          <UserWidget userId={user._id} photo={user.photo} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <MyPostWidget picturePath={""} />
-		  <PostsWidget userId={userId} isProfile={false} />
+          <PostsWidget loggedInUserId={user._id} isProfile={false} />
         </Box>
-        {isNonMobileScreens && <Box flexBasis={"26%"}>
-			<AdvertWidget/>
-			<Box m={"2rrem 0"} />
-			<FriendsListWidget />
-		</Box>}
+        {isNonMobileScreens && (
+          <Box flexBasis={"26%"}>
+            <AdvertWidget />
+            <Box m={"2rem 0"} />
+            <FriendsListWidget />
+          </Box>
+        )}
       </Box>
-
     </Box>
   );
 };

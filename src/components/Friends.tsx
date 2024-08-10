@@ -1,11 +1,6 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 
-import {
-  Box,
-  Typography,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { Box, Typography, useTheme, IconButton } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { iState, setFriends } from "../state";
@@ -34,7 +29,7 @@ const Friends = ({
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
   const isFriend = user?.friends?.find((id) => id === friendId);
-
+  console.log(location.pathname, "======++++++====>", user);
   const patchFriend = async () => {
     const response = await fetch(
       `${BASE_API_URL}/users/${user?._id}/${friendId}`,
@@ -46,7 +41,7 @@ const Friends = ({
       },
     );
 
-    const data = response.json();
+    const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
 
