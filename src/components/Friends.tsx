@@ -29,7 +29,7 @@ const Friends = ({
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
   const isFriend = user?.friends?.find((friend) => friend._id === friendId);
-  console.log(location.pathname, "======++++++====>", user);
+
   const patchFriend = async () => {
     const response = await fetch(
       `${BASE_API_URL}/users/${user?._id}/${friendId}`,

@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import Dropzone from "react-dropzone";
 
 import { UserI, iState, setLogin, setProfile } from "../../state";
+import FlexBetween from "../../components/FlexBetween";
+import { EditOutlined } from "@mui/icons-material";
 const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
 
 const profileSchema = yup.object().shape({
@@ -58,7 +60,6 @@ const ProfileEdit = () => {
     Object.entries(user).map(([key, value]) => formData.append(key, value));
 
     Object.entries(values).map(([key, value]) => {
-      console.log(key, value);
       if (value !== "") {
         formData.set(key, value);
       }
@@ -115,7 +116,7 @@ const ProfileEdit = () => {
           handleSubmit,
           handleChange,
           handleBlur,
-          //   setFieldValue
+            setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
@@ -134,7 +135,7 @@ const ProfileEdit = () => {
                 borderRadius={"5px"}
                 p="1rem"
               >
-                {/* <Dropzone
+                <Dropzone
                   multiple={false}
                   onDrop={(acceptedFiles) =>
                     setFieldValue("photo", acceptedFiles[0])
@@ -164,7 +165,7 @@ const ProfileEdit = () => {
                       )}
                     </Box>
                   )}
-                </Dropzone> */}
+                </Dropzone>
               </Box>
               <TextField
                 label="First Name"

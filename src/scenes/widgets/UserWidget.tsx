@@ -56,7 +56,7 @@ const UserWidget = ({
     lastName,
     location,
     occupation,
-    viewedProfile,
+    viewedProfileNumber,
     impressions,
     friends,
   } = user;
@@ -131,7 +131,7 @@ const UserWidget = ({
         <FlexBetween mb={"0.5rem"}>
           <Typography color={medium}>Who's viewed your profile</Typography>
           <Typography color={medium} fontWeight={"500"}>
-            {viewedProfile}
+            {viewedProfileNumber}
           </Typography>
         </FlexBetween>
         <FlexBetween mb={"0.5rem"}>

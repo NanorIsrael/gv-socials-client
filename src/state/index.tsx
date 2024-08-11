@@ -11,6 +11,7 @@ export interface UserI {
   occupation: string;
   location: string;
   photo: string;
+  viewedProfileNumber: number
 }
 
 export interface Post {
@@ -65,14 +66,13 @@ export const authSlice = createSlice({
     },
 
     setPost: (state, action) => {
-      const updatedPosts = state.posts.map((post) => {
+      state.posts = state.posts.map((post) => {
         if (post._id === action.payload.post._id) {
           return action.payload.post;
         }
 
         return post;
       });
-      state.posts = updatedPosts;
     },
     setProfile: (state, action) => {
       state.user = action.payload.user;

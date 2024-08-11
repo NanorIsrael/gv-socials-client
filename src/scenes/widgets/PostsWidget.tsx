@@ -37,12 +37,7 @@ const PostsWidget = ({
 }) => {
   const dispatch = useDispatch();
   const Posts = useSelector((state: iState) => state.posts);
-  const { palette } = useTheme();
   const token = useSelector((state: iState) => state.token);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const mediumMain = palette.neutral.mediumMain;
-  const main = palette.neutral.main;
-  const medium = palette.neutral.medium;
 
   const getPosts = async () => {
     const response = await fetch(`${BASE_API_URL}/posts`, {
@@ -53,7 +48,9 @@ const PostsWidget = ({
     });
 
     const posts: Post[] = await response.json();
-    dispatch(setPosts({ posts }));
+	if (posts) {
+		dispatch(setPosts({ posts }));
+	}
   };
 
   const getUserPosts = async () => {
@@ -65,7 +62,9 @@ const PostsWidget = ({
     });
 
     const posts: Post[] = await response.json();
-    dispatch(setPosts({ posts }));
+    if (posts) {
+		dispatch(setPosts({ posts }));
+	}
   };
 
   useEffect(() => {

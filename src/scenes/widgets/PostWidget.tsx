@@ -60,7 +60,7 @@ const PostWidget = ({
   const main = palette.neutral.main;
 
   const [isComments, setIsComments] = useState(false);
-  const isLikes = Boolean(user && likes[user?._id]);
+  const isLikes = Boolean(likes[user?._id as string]);
   const likesCount = Object.keys(likes).length;
 
   if (!user) {
@@ -78,7 +78,9 @@ const PostWidget = ({
     });
 
     const updatedPost = await response.json();
-    dispatch(setPost({ post: updatedPost }));
+    if ("_id" in updatedPost) {
+      dispatch(setPost({ post: updatedPost }));
+    }
   };
 
   return (
