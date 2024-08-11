@@ -15,7 +15,15 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 import { UserI, iState } from "../../state";
 const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
 
-const UserWidget = ({ userId, photo }: { userId: string; photo: string }) => {
+const UserWidget = ({
+  userId,
+  photo,
+  isProfile,
+}: {
+  userId: string;
+  photo: string;
+  isProfile: boolean;
+}) => {
   const [user, setUser] = useState<UserI | null>(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -59,7 +67,11 @@ const UserWidget = ({ userId, photo }: { userId: string; photo: string }) => {
       <FlexBetween
         gap={"0.5rem"}
         pb={"1.1rem"}
-        onClick={() => navigate(`/profile/${userId}`)}
+        onClick={() => {
+          isProfile
+            ? navigate(`/profile/${userId}/edit`)
+            : navigate(`/profile/${userId}`);
+        }}
       >
         <FlexBetween gap={"1rem"}>
           <UserImage image={photo} size="60px" />
@@ -80,7 +92,19 @@ const UserWidget = ({ userId, photo }: { userId: string; photo: string }) => {
             <Typography color={medium}>{friends.length} friends</Typography>
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+
+        {isProfile ? (
+          <EditOutlined
+            sx={{
+              "&:hover": {
+                color: palette.primary.dark,
+                cursor: "pointer",
+              },
+            }}
+          />
+        ) : (
+          <ManageAccountsOutlined />
+        )}
       </FlexBetween>
 
       <Divider />

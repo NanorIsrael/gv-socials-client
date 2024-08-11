@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { iState } from "../../state";
 import UserWidget from "../widgets/UserWidget";
 import FriendsListWidget from "../widgets/FriendListWidget";
@@ -20,6 +20,7 @@ const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
 
 const ProfilePage = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
   const token = useSelector((state: iState) => state.token);
   const [user, setUser] = useState<iState | null>(null);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -55,7 +56,7 @@ const ProfilePage = () => {
         justifyContent={"center"}
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={userId as string} photo={user?.photo} />
+          <UserWidget userId={userId as string} photo={user?.photo} isProfile />
           <Box m={"2rrem 0"} />
           <FriendsListWidget />
         </Box>

@@ -9,6 +9,7 @@ import { themeSettings } from "./theme";
 import { useSelector } from "react-redux";
 import { iState } from "./state";
 import Navbar from "./scenes/navbar";
+import ProfileEdit from "./scenes/profilePage/EditProfile";
 
 function App() {
   const mode = useSelector((state: iState) => state.mode);
@@ -28,6 +29,10 @@ function App() {
                 <Routes>
                   <Route path="/home" element={<HomePage />} />
                   <Route path="/profile/:userId" element={<ProfilePage />} />
+                  <Route
+                    path="/profile/:userId/edit"
+                    element={<ProfileEdit />}
+                  />
                   <Route path="*" element={<HomePage />} />
                 </Routes>
               </>

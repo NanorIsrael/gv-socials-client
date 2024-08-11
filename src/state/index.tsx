@@ -7,9 +7,9 @@ export interface UserI {
   password: string;
   lastName: string;
   firstName: string;
-  friends: Array<{[key: string]: string}>;
+  friends: Array<{ [key: string]: string }>;
   occupation: string;
-  lacation: string;
+  location: string;
   photo: string;
 }
 
@@ -74,9 +74,19 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setProfile: (state, action) => {
+      state.user = action.payload.user;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setPost, setPosts, setFriends } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setPost,
+  setPosts,
+  setFriends,
+  setProfile,
+} = authSlice.actions;
 export default authSlice.reducer;
