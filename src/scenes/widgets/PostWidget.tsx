@@ -36,7 +36,7 @@ const PostWidget = ({
   name,
   description,
   location,
-  picturePath,
+  postPhoto,
   userPhoto,
   likes,
   comments,
@@ -46,7 +46,7 @@ const PostWidget = ({
   name: string;
   description: string;
   location: string;
-  picturePath: string;
+  postPhoto: string;
   userPhoto: string;
   likes: { [key: string]: boolean };
   comments: Array<string>;
@@ -82,16 +82,16 @@ const PostWidget = ({
       dispatch(setPost({ post: updatedPost }));
     }
   };
-
+  console.log(`${postPhoto}`)
   return (
     <WidgetWrapper m={"2rem 0"}>
       <Friends friendId={postUserId} name={name} subtile={location} />
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      {picturePath && (
+      {postPhoto && (
         <img
-          src={`${BASE_API_URL}/assets/${picturePath}}`}
+          src={`${BASE_API_URL}/assets/uploads/${postPhoto}`}
           alt="post"
           width={"100%"}
           height={"auto"}

@@ -16,7 +16,7 @@ export interface UserI {
 
 export interface Post {
   description: string;
-  picturePath: string;
+  postPhoto: string;
   likes: { [key: string]: boolean };
   comments: Array<string>;
   _id: string;

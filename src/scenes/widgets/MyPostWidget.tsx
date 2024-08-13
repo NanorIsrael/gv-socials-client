@@ -60,9 +60,11 @@ const MyPostWidget = ({ picturePath }: { picturePath: string }) => {
     });
 
     const posts: Post[] = await response.json();
-    dispatch(setPosts({ posts }));
-    setImage(null);
-    setPost("");
+    if ("_id" in posts) {
+      dispatch(setPosts({ posts }));
+      setImage(null);
+      setPost("");
+    }
   };
 
   return (
@@ -70,7 +72,7 @@ const MyPostWidget = ({ picturePath }: { picturePath: string }) => {
       {/* FIRST ROW */}
       <FlexBetween gap={"1.5rem"} pb={"1.1rem"}>
         <FlexBetween gap={"1rem"} width={"100%"}>
-          <UserImage image={picturePath} size="60px" />
+          <UserImage image={user.photo} size="60px" />
           <InputBase
             placeholder="What is on your mind..."
             onChange={(e) => setPost(e.target.value)}

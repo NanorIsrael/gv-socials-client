@@ -36,7 +36,7 @@ const PostsWidget = ({
   isProfile: boolean;
 }) => {
   const dispatch = useDispatch();
-  const Posts = useSelector((state: iState) => state.posts);
+  const posts = useSelector((state: iState) => state.posts);
   const token = useSelector((state: iState) => state.token);
 
   const getPosts = async () => {
@@ -49,6 +49,7 @@ const PostsWidget = ({
 
     const posts: Post[] = await response.json();
 	if (posts) {
+		console.log(posts)
 		dispatch(setPosts({ posts }));
 	}
   };
@@ -66,6 +67,7 @@ const PostsWidget = ({
 		dispatch(setPosts({ posts }));
 	}
   };
+  console.log(posts[0].photo)
 
   useEffect(() => {
     if (isProfile) {
@@ -77,8 +79,9 @@ const PostsWidget = ({
 
   return (
     <>
-      {Posts.length > 0 &&
-        Posts.map(
+      {
+	  posts.length > 0 &&
+        posts.map(
           ({
             _id,
             userId,
@@ -86,7 +89,7 @@ const PostsWidget = ({
             lastName,
             description,
             location,
-            picturePath,
+            postPhoto,
             userPhoto,
             likes,
             comments,
@@ -98,7 +101,7 @@ const PostsWidget = ({
               name={`${firstName} ${lastName}`}
               description={description}
               location={location}
-              picturePath={picturePath}
+              postPhoto={postPhoto}
               userPhoto={userPhoto}
               likes={likes}
               comments={comments}
