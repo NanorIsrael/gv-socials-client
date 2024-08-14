@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-const BASE_API_URL = import.meta.env.VITE_APP_BASE_API_URL;
+const BASE_API_URL = import.meta.env.ITE_APP_BASE_API_URL;
 
 const UserImage = ({
   image,
@@ -15,7 +15,7 @@ const UserImage = ({
         width={size}
         height={size}
         alt={"user"}
-        src={`${BASE_API_URL}/assets/uploads/${image}`}
+        src={ image ? `${BASE_API_URL}/assets/uploads/${image}` : "/src/assets/profilephoto.jpeg"}
       />
     </Box>
   );

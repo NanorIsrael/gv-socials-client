@@ -34,6 +34,7 @@ interface IProfile {
   lastName: string;
   location: string;
   occupation: string;
+  photo?: string
 }
 const ProfileEdit = () => {
   const { palette } = useTheme();

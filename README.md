@@ -11,3 +11,6 @@ A social media platform that allows users to create profiles, connect with frien
   - JWT_SECRET=somesuperhardstring
 
 * Run npm install
+
+## Run
+npm run dev

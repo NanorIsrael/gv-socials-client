@@ -44,7 +44,6 @@ const PostsWidget = ({
 		dispatch(setPosts({ posts }));
 	}
   };
-  console.log(posts[0].photo)
 
   useEffect(() => {
     if (isProfile) {
