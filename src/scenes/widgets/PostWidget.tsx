@@ -82,7 +82,7 @@ const PostWidget = ({
       dispatch(setPost({ post: updatedPost }));
     }
   };
-  console.log(`${postPhoto}`)
+
   return (
     <WidgetWrapper m={"2rem 0"}>
       <Friends friendId={postUserId} name={name} subtile={location} />

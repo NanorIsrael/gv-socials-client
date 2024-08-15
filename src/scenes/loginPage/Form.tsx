@@ -110,8 +110,10 @@ const Form = () => {
     const savedUser = await savedUserResponse.json();
     onSubmitProp.resetForm();
 
-    if (savedUser) {
+    if (!savedUser?.error) {
       setPageType("login");
+    } else {
+      console.log(savedUser?.error)
     }
   };
 
