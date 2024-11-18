@@ -2,13 +2,8 @@ import {
   Box,
   useTheme,
   useMediaQuery,
-  FormControl,
-  Select,
-  InputBase,
-  MenuItem,
   Typography,
 } from "@mui/material";
-import { setLogout } from "../../state";
 import Form from "./Form";
 
 const LoginPage = () => {
@@ -23,7 +18,7 @@ const LoginPage = () => {
         p={"1rem 6%"}
         textAlign={"center"}
       >
-        <Typography fontWeight={"bold"} fontSize={"32px"} color={"primary"}>
+        <Typography className="header" fontWeight={"bold"} fontSize={"32px"} color={"primary"}>
           Gv Socials
         </Typography>
       </Box>

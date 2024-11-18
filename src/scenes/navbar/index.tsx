@@ -47,6 +47,7 @@ const Navbar = () => {
     <FlexBetween padding={"1rem 6%"} bgcolor={alt}>
       <FlexBetween gap={"1.75rem"}>
         <Typography
+          className="header"
           fontWeight={"bold"}
           fontSize={"clamp(1rem, 2rem, 2.25rem)"}
           color={"primary"}
